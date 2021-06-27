@@ -222,6 +222,21 @@ class AddressBook {
             }
         }
     }
+    public static Comparator<ContactDetail> compareFirstName = new Comparator<ContactDetail>() {
+        @Override
+        public int compare(ContactDetail contactDetail, ContactDetail t1) {
+            String tempFirstName1 = contactDetail.getFirstName();
+            String tempFirstName2 = contactDetail.getFirstName();
+            return tempFirstName1.compareTo(tempFirstName2);
+        }
+    };
+    //sorting contact
+    public void sortContact(ArrayList<AddressBook> adbook) {
+        Collections.sort(contactList, AddressBook.compareFirstName);
+        for(ContactDetail contact: contactList) {
+            System.out.println(contact.getFirstName());
+        }
+    }
 }
 //Main Class
 public class AddressBookMain {
@@ -257,7 +272,8 @@ public class AddressBookMain {
                         if (adbook.get(j).addressBookName.equalsIgnoreCase(accessBook)) {
                             int switchChoice = 0;
                             while (switchChoice != 5) {
-                                System.out.println("Enter \n1: add \n2: edit \n3: delete \n4: view \n5: View persons in same city \n6: View persons in same state \n7: exit");
+                                System.out.println("Enter \n1: add \n2: edit \n3: delete \n4: view \n5: View persons in same city \n6: View persons in same state \n7: exit"+
+                                        "\n7: count of people from same city \n8: count of people from same state \n9: sort contact                       \n10: exit");
                                 System.out.println("Enter choice : ");
                                 switchChoice = scan.nextInt();
                                 choice = "y";
@@ -289,7 +305,17 @@ public class AddressBookMain {
                                     case 6:
                                         addressObject.contactWithSameState();
                                         break;
+                                    case 7:
+                                        addressObject.countWithSameCity();
+                                        break;
 
+                                    case 8:
+                                        addressObject.countWithSameState();
+                                        break;
+
+                                    case 9:
+                                        addressObject.sortContact(adbook);
+                                        break;
                                     default:
                                         break;
                                 }
